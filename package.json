@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "lint:ci": "eslint .",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -20,11 +20,16 @@
   },
   "homepage": "https://github.com/Dwightcore/otus-qa-js-2025-07-sokolov#readme",
   "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
     "@eslint/js": "^9.31.0",
-    "eslint": "^9.31.0",
+    "babel-jest": "^29.7.0",
+    "eslint": "^9.32.0",
     "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-jest": "^28.14.0",
     "eslint-plugin-prettier": "5.5.3",
     "globals": "^16.3.0",
+    "jest": "^29.7.0",
     "prettier": "3.6.2"
   }
 }
