@@ -1,4 +1,4 @@
-import { nameIsValid, fullTrim, getTotal } from '../../../src/app.js'
+import { nameIsValid, fullTrim, getTotal } from '../../src/app.js'
 
 describe('App Tests', () => {
   ;(describe('nameIsValid', () => {
