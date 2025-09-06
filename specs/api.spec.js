@@ -1,6 +1,6 @@
 import { generateInvalidUserData, generateValidUserData } from '../framework/fixtures/userData.js'
 import { accountController } from '../framework/services/controllers/accountController.js'
-import { AuthController } from '../framework/services/controllers/authController.js'
+import { authController } from '../framework/services/controllers/authController.js'
 import { bookController } from '../framework/services/controllers/bookController.js'
 
 describe('accountApi', () => {
@@ -13,36 +13,44 @@ describe('accountApi', () => {
       validUser = generateValidUserData()
       validPassword = validUser.password
 
-      const user = await accountController.createUser(validUser.login, validPassword)
-      expect(user).toHaveProperty('userID')
+      const response = await accountController.createUser(validUser.login, validPassword)
+      expect(response.statusCode).toBe(201)
+      expect(response.success).toBe(true)
+      expect(response.body).toHaveProperty('userID')
 
-      createdUserId = user.userID
+      createdUserId = response.body.userID
     }, 10000)
   })
 
   describe('Authorisation', () => {
     it('login with valid credentials', async () => {
-      const result = await AuthController.authoriseUser(validUser.login, validPassword)
-      expect(result).toBe(false) // API баг - возвращает false вместо токена
+      const response = await authController.authoriseUser(validUser.login, validPassword)
+      expect(response.statusCode).toBe(200)
+      expect(response.body).toBe(false) // API баг - возвращает false вместо токена
+      expect(response.success).toBe(false)
     }, 10000)
 
     it('should not login with invalid credentials', async () => {
       const invalidUser = generateInvalidUserData()
       const invalidPassword = generateInvalidUserData(2)
 
-      await expect(AuthController.authoriseUser(invalidUser.login, invalidPassword.password)).rejects.toThrow(
-        'Authorisation failed'
-      )
+      const response = await authController.authoriseUser(invalidUser.login, invalidPassword.password)
+      expect(response.statusCode).toBe(404)
+      expect(response.success).toBe(false)
     })
   })
 
   describe('Account', () => {
     it('get account details', async () => {
-      await expect(accountController.getUser(createdUserId)).rejects.toThrow('Get user failed: 401')
+      const response = await accountController.getUser(createdUserId)
+      expect(response.statusCode).toBe(401) // API возвращает 401 - требует авторизацию
+      expect(response.success).toBe(false)
     })
 
     it('delete account', async () => {
-      await expect(accountController.deleteUser(createdUserId)).rejects.toThrow('Delete user failed: 401')
+      const response = await accountController.deleteUser(createdUserId)
+      expect(response.statusCode).toBe(401) // API возвращает 401 - требует авторизацию
+      expect(response.success).toBe(false)
     })
   })
 })
@@ -50,39 +58,47 @@ describe('accountApi', () => {
 describe('Book Management', () => {
   let bookIsbn
 
-  it('get list of books', async () => {
-    const books = await bookController.getBooks()
-    expect(books).toHaveProperty('books')
-    expect(Array.isArray(books.books)).toBe(true)
+  it('should get list of books', async () => {
+    const response = await bookController.getBooks()
+    expect(response.statusCode).toBe(200)
+    expect(response.success).toBe(true)
+    expect(response.body).toHaveProperty('books')
+    expect(Array.isArray(response.body.books)).toBe(true)
 
-    if (books.books.length > 0) {
-      bookIsbn = books.books[0].isbn
+    if (response.body.books.length > 0) {
+      bookIsbn = response.body.books[0].isbn
     }
   }, 10000)
 
-  it('get book by ISBN', async () => {
+  it('should get book by ISBN', async () => {
     if (!bookIsbn) {
       bookIsbn = '9781449325862' // Fallback ISBN
     }
 
-    const book = await bookController.getBook(bookIsbn)
-    expect(book).toHaveProperty('isbn')
-    expect(book.isbn).toBe(bookIsbn)
+    const response = await bookController.getBook(bookIsbn)
+    expect(response.statusCode).toBe(200)
+    expect(response.success).toBe(true)
+    expect(response.body).toHaveProperty('isbn')
+    expect(response.body.isbn).toBe(bookIsbn)
   }, 10000)
 
-  it('fail to add book to user (unauthorized)', async () => {
+  it('should fail to add book to user (unauthorized)', async () => {
     if (!bookIsbn) {
       bookIsbn = '9781449325862'
     }
 
-    await expect(bookController.addBook('someUserId', bookIsbn)).rejects.toThrow('Add book failed')
+    const response = await bookController.addBook('someUserId', bookIsbn)
+    expect(response.statusCode).toBe(401) // или другой код ошибки авторизации
+    expect(response.success).toBe(false)
   })
 
-  it('fail to delete book from user (unauthorized)', async () => {
+  it('should fail to delete book from user (unauthorized)', async () => {
     if (!bookIsbn) {
       bookIsbn = '9781449325862'
     }
 
-    await expect(bookController.deleteBook('someUserId', bookIsbn)).rejects.toThrow('Delete book failed')
+    const response = await bookController.deleteBook('someUserId', bookIsbn)
+    expect(response.statusCode).toBe(401) // или другой код ошибки авторизации
+    expect(response.success).toBe(false)
   })
 })

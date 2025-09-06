@@ -1,11 +1,12 @@
-import { authService } from '../authService'
+import { authService } from '../authService.js'
 
-export const AuthController = {
+export const authController = {
   async authoriseUser(userName, password) {
-    const authorisation = await authService.authorisation(userName, password)
-    if (authorisation.statusCode !== 200) {
-      throw new Error(`Authorisation failed: ${authorisation.statusCode}`)
+    const response = await authService.authorisation(userName, password)
+    return {
+      statusCode: response.statusCode,
+      body: response.body,
+      success: response.statusCode === 200 && response.body === true
     }
-    return authorisation.body
   }
 }
