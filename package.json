@@ -7,7 +7,12 @@
   "scripts": {
     "lint:ci": "eslint .",
     "lint": "eslint . --fix",
-    "test": "jest"
+    "test": "jest",
+    "allure:history": "mkdir -p reports/allure-results/history && if [ -d reports/allure-report/history ]; then cp -R reports/allure-report/history reports/allure-results/; fi",
+    "allure:generate": "npx allure generate reports/allure-results --clean -o reports/allure-report",
+    "allure:open": "npx allure open reports/allure-report",
+    "allure:serve": "npx allure serve reports/allure-results",
+    "allure:ci": "npm run allure:history && npm run allure:generate"
   },
   "repository": {
     "type": "git",
@@ -24,7 +29,10 @@
     "@babel/core": "^7.28.0",
     "@babel/preset-env": "^7.28.0",
     "@eslint/js": "^9.31.0",
+    "allure-commandline": "^2.34.1",
+    "allure-jest": "^3.3.3",
     "babel-jest": "^29.7.0",
+    "dotenv": "^17.2.2",
     "eslint": "^9.32.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-jest": "^28.14.0",
