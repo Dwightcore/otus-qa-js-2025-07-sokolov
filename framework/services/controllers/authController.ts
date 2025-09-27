@@ -1,7 +1,7 @@
 import { authService } from '../authService.js'
 
 export const authController = {
-  async authoriseUser(userName, password) {
+  async authoriseUser(userName: any, password: any) {
     const response = await authService.authorisation(userName, password)
     return {
       statusCode: response.statusCode,

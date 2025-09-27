@@ -1,4 +1,4 @@
-function kolobok(character) {
+function kolobok(character: any) {
   let normalised = character.trim().toLowerCase()
   switch (normalised) {
     case 'дедушка':
@@ -12,7 +12,7 @@ function kolobok(character) {
   }
 }
 
-const newYear = name => {
+const newYear = (name: any) => {
   let redactedName = name.trim()
   if (redactedName === 'Дед Мороз' || redactedName === 'Снегурочка') {
     return `${redactedName}! ${redactedName}! ${redactedName}!`

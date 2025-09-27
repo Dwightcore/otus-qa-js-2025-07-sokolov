@@ -4,6 +4,6 @@ export default {
     resultsDir: 'reports/allure-results'
   },
   transform: {
-    '^.+\\.js$': 'babel-jest'
+    '^.+\\.tsx?$': ['ts-jest', { useESM: true }]
   }
 }
