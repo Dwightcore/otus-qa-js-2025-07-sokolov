@@ -10,7 +10,7 @@ export const bookController = {
     }
   },
 
-  async getBook(isbn) {
+  async getBook(isbn: any) {
     const response = await bookService.getBook(isbn)
     return {
       statusCode: response.statusCode,
@@ -19,7 +19,7 @@ export const bookController = {
     }
   },
 
-  async addBook(userID, isbn) {
+  async addBook(userID: any, isbn: any) {
     const response = await bookService.addListOfBooks(userID, isbn)
     return {
       statusCode: response.statusCode,
@@ -28,7 +28,7 @@ export const bookController = {
     }
   },
 
-  async deleteBook(userID, isbn) {
+  async deleteBook(userID: any, isbn: any) {
     const response = await bookService.deleteBook(userID, isbn)
     return {
       statusCode: response.statusCode,

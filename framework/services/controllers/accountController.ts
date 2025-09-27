@@ -1,7 +1,7 @@
 import { accountService } from '../accountService.js'
 
 export const accountController = {
-  async createUser(userName, password) {
+  async createUser(userName: any, password: any) {
     const response = await accountService.createUser(userName, password)
     return {
       statusCode: response.statusCode,
@@ -10,7 +10,7 @@ export const accountController = {
     }
   },
 
-  async getUser(userId) {
+  async getUser(userId: any) {
     const response = await accountService.getUser(userId)
     return {
       statusCode: response.statusCode,
@@ -19,7 +19,7 @@ export const accountController = {
     }
   },
 
-  async deleteUser(userId) {
+  async deleteUser(userId: any) {
     const response = await accountService.deleteUser(userId)
     return {
       statusCode: response.statusCode,
