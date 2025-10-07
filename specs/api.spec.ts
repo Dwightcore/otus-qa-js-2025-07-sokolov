@@ -4,9 +4,9 @@ import { authController } from '../framework/services/controllers/authController
 import { bookController } from '../framework/services/controllers/bookController.js'
 
 describe('accountApi', () => {
-  let createdUserId
-  let validUser
-  let validPassword
+  let createdUserId: any
+  let validUser: any
+  let validPassword: any
 
   describe('Create user', () => {
     it('create user', async () => {
@@ -18,6 +18,7 @@ describe('accountApi', () => {
       expect(response.success).toBe(true)
       expect(response.body).toHaveProperty('userID')
 
+      // @ts-expect-error TS(2571) FIXME: Object is of type 'unknown'.
       createdUserId = response.body.userID
     }, 10000)
   })
@@ -56,16 +57,19 @@ describe('accountApi', () => {
 })
 
 describe('Book Management', () => {
-  let bookIsbn
+  let bookIsbn: any
 
   it('should get list of books', async () => {
     const response = await bookController.getBooks()
     expect(response.statusCode).toBe(200)
     expect(response.success).toBe(true)
     expect(response.body).toHaveProperty('books')
+    // @ts-expect-error TS(2571) FIXME: Object is of type 'unknown'.
     expect(Array.isArray(response.body.books)).toBe(true)
 
+    // @ts-expect-error TS(2571) FIXME: Object is of type 'unknown'.
     if (response.body.books.length > 0) {
+      // @ts-expect-error TS(2571) FIXME: Object is of type 'unknown'.
       bookIsbn = response.body.books[0].isbn
     }
   }, 10000)
@@ -79,6 +83,7 @@ describe('Book Management', () => {
     expect(response.statusCode).toBe(200)
     expect(response.success).toBe(true)
     expect(response.body).toHaveProperty('isbn')
+    // @ts-expect-error TS(2571) FIXME: Object is of type 'unknown'.
     expect(response.body.isbn).toBe(bookIsbn)
   }, 10000)
 

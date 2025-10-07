@@ -8,7 +8,7 @@ describe('App Tests', () => {
       ['jane', true],
       ['J', false],
       ['John123', false]
-    ])('nameIsValid(%s) should return %s', (name, expected) => {
+    ])('nameIsValid(%s) should return %s', (name: any, expected: any) => {
       expect(nameIsValid(name)).toBe(expected)
     })
   })
@@ -30,11 +30,12 @@ describe('App Tests', () => {
         40
       ],
       [[], 0, 0]
-    ])('getTotal(%j, %s) should return %s', (items, discount, expected) => {
+    ])('getTotal(%j, %s) should return %s', (items: any, discount: any, expected: any) => {
       expect(getTotal(items, discount)).toBe(expected)
     })
 
     it('should throw error if discount is not a number', () => {
+      // @ts-expect-error TS(2322) FIXME: Type 'number' is not assignable to type 'never'.
       expect(() => getTotal([{ price: 10, quantity: 1 }], 'abc')).toThrow('Скидка должна быть числом')
     })
   })
