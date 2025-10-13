@@ -10,7 +10,7 @@ export const bookService = {
     return { statusCode: response.statusCode, body: response.body }
   },
 
-  async addListOfBooks(userID, isbn) {
+  async addListOfBooks(userID: any, isbn: any) {
     const response = await got.post(`${config.api.baseUrl}/BookStore/v1/Books`, {
       json: {
         userId: userID,
@@ -25,14 +25,14 @@ export const bookService = {
     })
     return { statusCode: response.statusCode, body: response.body }
   },
-  async getBook(isbn) {
+  async getBook(isbn: any) {
     const response = await got(`${config.api.baseUrl}/BookStore/v1/Book?ISBN=${isbn}`, {
       responseType: 'json',
       throwHttpErrors: false
     })
     return { statusCode: response.statusCode, body: response.body }
   },
-  async deleteBook(userID, isbn) {
+  async deleteBook(userID: any, isbn: any) {
     const response = await got.delete(`${config.api.baseUrl}/BookStore/v1/Book`, {
       json: {
         userId: userID,
