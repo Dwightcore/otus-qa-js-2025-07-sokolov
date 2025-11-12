@@ -24,7 +24,20 @@ const config: Config = {
   },
 
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
-  testMatch: ['<rootDir>/(specs|tests)/**/*.(test|spec).ts']
+  testMatch: ['<rootDir>/(specs|tests)/**/*.(test|spec).ts'],
+
+  reporters: [
+    'default',
+    [
+      'jest-html-reporter',
+      {
+        pageTitle: 'Jest Test Report',
+        outputPath: 'public/jest-report/index.html',
+        includeFailureMsg: true,
+        includeSuiteFailure: true
+      },
+    ],
+  ],
 };
 
 export default config;

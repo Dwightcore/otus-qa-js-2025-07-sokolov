@@ -1,0 +1,19 @@
+stages:
+  - test
+
+test:
+  stage: test
+  image: node:24.8.0
+  script:
+    - npm ci
+    - cp $ENV_FILE .env
+    - npm run test:ci
+    - npm run allure:ci
+  artifacts:
+    paths:
+      - reports/allure-results/
+      - reports/allure-report/
+      - public/eslint-report/
+      - reports/eslint-results.json
+      - public/jest-report
+    expire_in: 1 week
