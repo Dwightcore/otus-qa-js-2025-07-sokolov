@@ -15,13 +15,16 @@ const config: Config = {
       },
     ],
   },
+  transformIgnorePatterns: [
+  '/node_modules/(?!(got|@sindresorhus/is|p-cancelable|form-data-encoder|get-stream|http2-wrapper|cacheable-lookup|cacheable-request|decompress-response|lowercase-keys|responselike)/)'
+  ],
 
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1'
   },
 
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
-  testMatch: ['<rootDir>/(specs|tests)/**/*.test.ts']
+  testMatch: ['<rootDir>/(specs|tests)/**/*.(test|spec).ts']
 };
 
 export default config;
