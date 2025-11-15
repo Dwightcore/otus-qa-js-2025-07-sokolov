@@ -195,4 +195,4 @@ dist
 
 reports/allure-results
 reports/allure-report
-public/jest-report
+public/

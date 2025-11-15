@@ -32,7 +32,7 @@ const config: Config = {
       'jest-html-reporter',
       {
         pageTitle: 'Jest Test Report',
-        outputPath: 'public/jest-report/index.html',
+        outputPath: 'public/index.html',
         includeFailureMsg: true,
         includeSuiteFailure: true
       },

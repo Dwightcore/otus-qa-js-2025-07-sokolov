@@ -10,6 +10,7 @@
     "lint": "eslint . --fix",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "typecheck": "tsc --noEmit",
+
     "allure:history": "mkdir -p reports/allure-results/history && if [ -d reports/allure-report/history ]; then cp -R reports/allure-report/history reports/allure-results/; fi",
     "allure:generate": "npx allure generate reports/allure-results --clean -o reports/allure-report",
     "allure:open": "npx allure open reports/allure-report",
