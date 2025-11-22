@@ -195,3 +195,10 @@ dist
 
 reports/allure-results
 reports/allure-report
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
