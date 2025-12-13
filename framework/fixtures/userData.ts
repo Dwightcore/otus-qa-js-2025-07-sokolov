@@ -24,3 +24,4 @@ export function getDefaultUser() {
     password: config.default.user.password
   }
 }
+

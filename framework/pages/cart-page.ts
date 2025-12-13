@@ -18,3 +18,4 @@ export default class CartPage extends BasePage {
     await expect(this.sku).toBeVisible();
   }
 }
+

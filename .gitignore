@@ -202,3 +202,6 @@ reports/allure-report
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Other
+public

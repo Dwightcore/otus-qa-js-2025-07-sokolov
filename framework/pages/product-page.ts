@@ -20,3 +20,4 @@ export default class ProductPage extends BasePage {
     await this.addToCart.click();
   }
 }
+
