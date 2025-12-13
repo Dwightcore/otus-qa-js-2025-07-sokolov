@@ -39,3 +39,4 @@ export default class MainPage extends BasePage {
     await this.page.getByRole('link', { name: child, exact: false }).first().click();
   }
 }
+

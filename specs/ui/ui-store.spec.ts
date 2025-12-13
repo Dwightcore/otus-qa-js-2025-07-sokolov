@@ -4,23 +4,63 @@ import LoginPage from '../../framework/pages/login-page.js';
 import ProductPage from '../../framework/pages/product-page.js';
 import CartPage from '../../framework/pages/cart-page.js';
 import CategoryPage from '../../framework/pages/category-page.js';
-import WishlistPage from '../../framework/pages//wishlist-page.js';
+import WishlistPage from '../../framework/pages/wishlist-page.js';
+import RegisterPage from '../../framework/pages/register-page.js';
 
 test('Регистрация нового пользователя', async ({ page }) => {
   const main = new MainPage(page);
+  const register = new RegisterPage(page);
+
   await main.open();
   await main.header.openRegister();
 
-  const email = `qa.${Date.now()}@example.com`;
-  await page.getByRole('radio', { name: 'Male', exact: true }).check();
-  await page.getByLabel('First name:').fill('QA');
-  await page.getByLabel('Last name:').fill('Engineer');
-  await page.getByLabel('Email:').fill(email);
-  await page.locator('#Password').fill('Qwerty123!');
-  await page.locator('#ConfirmPassword').fill('Qwerty123!');
-  await page.getByRole('button', { name: 'Register' }).click();
+  await register.register({
+    gender: 'male',
+    firstName: 'QA',
+    lastName: 'Engineer',
+    email: `qa.${Date.now()}@example.com`,
+    password: 'Qwerty123!'
+  });
 
-  await expect(page.getByText('Your registration completed')).toBeVisible();
+  await register.expectSuccessfulRegistration();
+});
+
+test('Регистрация с подпиской на newsletter', async ({ page }) => {
+  const main = new MainPage(page);
+  const register = new RegisterPage(page);
+
+  await main.open();
+  await main.header.openRegister();
+
+  await register.register({
+    gender: 'female',
+    firstName: 'Jane',
+    lastName: 'Doe',
+    email: `jane.${Date.now()}@example.com`,
+    company: 'QA Corp',
+    newsletter: true,
+    password: 'SecurePass123!'
+  });
+
+  await register.expectSuccessfulRegistration();
+});
+
+test('Регистрация с невалидным email', async ({ page }) => {
+  const main = new MainPage(page);
+  const register = new RegisterPage(page);
+
+  await main.open();
+  await main.header.openRegister();
+
+  await register.register({
+    gender: 'female',
+    firstName: 'Test',
+    lastName: 'User',
+    email: 'invalid-email@example',
+    password: 'Test123!'
+  });
+
+  await register.expectValidationError('Wrong email');
 });
 
 test('Логин и выход', async ({ page }) => {

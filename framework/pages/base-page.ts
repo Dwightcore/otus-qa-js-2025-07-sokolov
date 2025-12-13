@@ -11,3 +11,4 @@ export default class BasePage {
     await this.page.goto(`https://demo.nopcommerce.com${path}`);
   }
 }
+

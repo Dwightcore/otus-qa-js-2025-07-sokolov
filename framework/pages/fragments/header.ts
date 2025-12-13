@@ -27,3 +27,4 @@ export default class Header {
     if (await this.logoutLink.isVisible()) await this.logoutLink.click();
   }
 }
+

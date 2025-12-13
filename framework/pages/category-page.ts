@@ -24,3 +24,4 @@ export default class CategoryPage extends BasePage {
     await expect(this.products.first()).toBeVisible();
   }
 }
+

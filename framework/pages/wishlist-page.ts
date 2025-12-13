@@ -27,3 +27,4 @@ export default class WishlistPage extends BasePage {
     await expect(this.rows.first()).toBeVisible();
   }
 }
+
